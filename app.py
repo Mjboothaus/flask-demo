@@ -2,8 +2,8 @@ import datetime
 
 import pandas as pd
 import quandl
+from bokeh.charts import TimeSeries
 from bokeh.embed import components
-from bokeh.plotting import figure
 from bokeh.resources import INLINE
 from flask import Flask, render_template
 from flask_bootstrap import Bootstrap
@@ -84,13 +84,12 @@ def index():
         css_resources = INLINE.render_css()
 
         # Plotting
-        p = figure(title="Stock price last month", x_axis_label='Date', y_axis_label=stock_ticker)
-        p.line(data.index, data.Close, legend=stock_ticker, line_width=2)
+        p = TimeSeries(data, y='Close', title=stock_ticker, ylabel='Price (USD / share)', xlabel='Date')
         script, div = components(p)
 
     form.stock_ticker.data = stock_ticker
 
-    return render_template('plot_example.html',
+    return render_template('app_plotter.html',
                            form=form,
                            name=stock_ticker,
                            plot_script=script,
