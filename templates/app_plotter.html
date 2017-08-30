@@ -15,11 +15,12 @@
 </head>
 <body>
 
-<!-- A simple form for changing the graph -->
-<p> Select your settings: </p>
-<form name="color_button" method='GET'>
-    <button type="submit">Submit</button>
+<form method="POST" action="/">
+    {{ form.hidden_tag() }}
+    {{ form.stock_ticker.label }} {{ form.stock_ticker(size=20) }}
+    <input type="submit" value="Go">
 </form>
+
 {{ plot_div|indent(4)|safe }}
 
 <p> TODO: Add a NASDAQ link for specific stock here</p>

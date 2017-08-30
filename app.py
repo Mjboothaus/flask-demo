@@ -48,7 +48,6 @@ Bootstrap(app)
 @app.route('/', methods=['GET', 'POST'])
 def index():
     stock_ticker = None
-    plot_snippet = None
     form = MyForm()
 
     if not form.validate_on_submit():  # TODO: Need to remove not here - don't understand this
@@ -97,12 +96,7 @@ def index():
                            js_resources=js_resources,
                            css_resources=css_resources)
 
+
 if __name__ == '__main__':
     main()
     app.run(port=33507)
-
-
-    # Embed plot into HTML via Flask Render
-
-
-    # simple_example_app.html
