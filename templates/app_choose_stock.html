@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset='utf-8'/>
+    <meta http-equiv='content-type' content='text/html; charset=utf-8'/>
+    <title>Stock Price Plotter</title>
+</head>
+<body>
+<h1> Stock Price Plotter </h1>
+<h3> Please specify a stock to plot the closing price for the last 30 days e.g. type in AAPL (for Apple) </h3>
+<h3>
+    <form method="POST" action="/produce_plot">
+        {{ form.hidden_tag() }}
+        {{ form.stock_ticker.label }} {{ form.stock_ticker(size=20) }}
+        <input type="submit" value="Go">
+    </form>
+</h3>
+</body>
+</div>
+
+<a href="https://www.about.me/mjboothaus" target="_blank"> about.me/mjboothaus </a>
+
+</html>
