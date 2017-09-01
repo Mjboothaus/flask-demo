@@ -18,31 +18,12 @@ class StockChoiceForm(FlaskForm):
     submit = SubmitField('Submit')
 
 
-# # Validate stock ticker (initially from user input)  TODO: Move to web form
-#
-# stock_ticker = 'AAPL'        # need to request from user and validate TODO: Put back to null string
-#
-# while stock_ticker not in stock_code_list:
-#     stock_ticker = raw_input('Enter stock ticker: ')
-#     stock_ticker = 'AAPL' # TODO: For testing
-#     # TODO: get stock ticker from web interface
-
-# TODO: Put dynamic link on page to look up stock info after producing chart
-
-
-
-# TODO: Simple webpage requirements
-# INPUT: User choice of stock ticker
-# OUTPUT: Plots closing price data for the last month
-
-# TODO: Also put link to stock e.g. http://www.nasdaq.com/symbol/aapl
-
-
 def main():
     return
 
+
 app = Flask(__name__)
-app.secret_key = 'mjb_verylongsecretkey'
+app.secret_key = 'mjboothaus_42verylongsecretkey'
 Bootstrap(app)
 
 
@@ -81,6 +62,8 @@ def produce_plot():
     start_date = end_date - timedelta(days=31)  # just look at last 30 days for now (not exactly 1 month)
 
     # Get price data from Quandl
+
+    data = None
     try:
         quandl.ApiConfig.api_key = 'Mror8Ww3qg5e947A7Fhj'
         data = quandl.get(quandl_reference, start_date=start_date, end_date=end_date, returns='pandas')

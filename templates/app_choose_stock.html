@@ -7,17 +7,17 @@
 </head>
 <body>
 <h1> Stock Price Plotter </h1>
-<h3> Please specify a stock to plot the closing price for the last 30 days e.g. type in AAPL (for Apple) </h3>
+<h2> Please specify a stock to plot the closing price for the last 30 days e.g. type in AAPL (for Apple) </h2>
 <h3>
     <form method="POST" action="/produce_plot">
         {{ form.hidden_tag() }}
-        {{ form.stock_ticker.label }} {{ form.stock_ticker(size=20) }}
+        {{ form.stock_ticker.label }} {{ form.stock_ticker(placeholder='AAPL', maxlength=5, size=8) }}
         <input type="submit" value="Go">
     </form>
 </h3>
+</div>
+<a href="http://www.nasdaq.com/screening/companies-by-name.aspx" target="_blank">Look up a stock symbol on NASDAQ.</a>
 </body>
 </div>
-
-<a href="https://www.about.me/mjboothaus" target="_blank"> about.me/mjboothaus </a>
-
+<h6><a href="https://www.about.me/mjboothaus" target="_blank"> about.me/mjboothaus </a></h6>
 </html>
