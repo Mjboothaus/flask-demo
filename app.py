@@ -24,7 +24,7 @@ def main():
 
 app = Flask(__name__)
 app.secret_key = 'mjboothaus_42verylongsecretkey'
-Bootstrap(app)
+Bootstrap(app)  # TODO: Does Bootstrap() do anything useful here?
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -38,19 +38,17 @@ def index():
 def produce_plot():
     stock_ticker = request.form.get('stock_ticker')
 
-    script = None
-    div = None
-    nasdaq_url = ''
     js_resources = INLINE.render_js()
     css_resources = INLINE.render_css()
 
     # Load list of stock codes (currently static CSV version downloaded from Quandl
+    # TODO: Probably best to get a list of stock symbols dynamically
 
     stock_codes = pd.read_csv('WIKI-datasets-codes.csv', header=None)
     stock_code_list = stock_codes[0].tolist()
     stock_code_list = [w.replace('WIKI/', '') for w in stock_code_list]
 
-    if stock_ticker not in stock_code_list:  # TODO - how do we do client-side validation of the stock code?
+    if stock_ticker not in stock_code_list:  # TODO - Implement client-side validation of stock symbol - see StockChoiceForm validators
         stock_ticker = 'AAPL'
 
     quandl_reference = 'WIKI/' + stock_ticker
