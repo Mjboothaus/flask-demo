@@ -21,7 +21,6 @@ class StockChoiceForm(FlaskForm):
 def main():
     return
 
-
 app = Flask(__name__)
 app.secret_key = 'mjboothaus_42verylongsecretkey'
 Bootstrap(app)  # TODO: Does Bootstrap() do anything useful here?

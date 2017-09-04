@@ -1,5 +1,7 @@
 wtforms==2.1
 flask==0.12.2
+flask_wtf
+flask_bootstrap
 pandas==0.20.3
 numpy==1.12.1
 matplotlib==2.0.2

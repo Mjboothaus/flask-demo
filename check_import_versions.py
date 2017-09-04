@@ -1,3 +1,5 @@
+# ---------------- Version information imports ---------------------------------------
+
 import sys
 import types
 
