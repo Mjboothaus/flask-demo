@@ -1,23 +1,46 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset='utf-8'/>
-    <meta http-equiv='content-type' content='text/html; charset=utf-8'/>
-    <title>Stock Price Plotter</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" media="screen" href="static/bootstrap.min.css">
+    <link rel="stylesheet" href="static/bootstrap-theme.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Stock</title>
+    <!-- Custom styles for this template -->
 </head>
 <body>
-<h1> Stock Price Plotter </h1>
-<h2> Please specify a stock to plot the closing price for the last 30 days e.g. type in AAPL (for Apple) </h2>
+<!-- Page Content -->
+<div id="page-content-wrapper">
+    <div class="container-fluid">
+        <h1>Stock Price Plotter</h1>
+        <h3> Please specify a stock symbol to plot the closing price for the last 30 days e.g. type in AAPL (for
+            Apple) </h3>
+        <h3>
+            <form method="POST" action="/produce_plot">
+                {{ form.hidden_tag() }}
+                {{ form.stock_ticker.label }} {{ form.stock_ticker(placeholder='AAPL', maxlength=5, size=8) }}
+                <input type="submit" value="Go">
+            </form>
+        </h3>
+    </div>
+</div>
+</div>
 <h3>
-    <form method="POST" action="/produce_plot">
-        {{ form.hidden_tag() }}
-        {{ form.stock_ticker.label }} {{ form.stock_ticker(placeholder='AAPL', maxlength=5, size=8) }}
-        <input type="submit" value="Go">
-    </form>
+    <tab>
+        <a href="http://www.nasdaq.com/screening/companies-by-name.aspx" target="_blank">
+            Look up a stock symbol on
+            the NASDAQ.</a></tab>
 </h3>
 </div>
-<a href="http://www.nasdaq.com/screening/companies-by-name.aspx" target="_blank">Look up a stock symbol on NASDAQ.</a>
-</body>
+<h5><a href="https://www.about.me/mjboothaus" target="_blank">
+    <tab></tab>
+    Author: Michael J. Booth</a></h5>
+<!-- /#page-content-wrapper -->
 </div>
-<h6><a href="https://www.about.me/mjboothaus" target="_blank"> about.me/mjboothaus </a></h6>
+<!-- /#wrapper -->
+<!-- Bootstrap core JavaScript -->
+<script src="vendor/jquery/jquery.min.js"></script>
+<script src="vendor/popper/popper.min.js"></script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+</body>
 </html>

@@ -9,26 +9,42 @@ from flask import Flask, render_template, request
 from flask_bootstrap import Bootstrap
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
-from wtforms.validators import DataRequired
+from wtforms.validators import DataRequired, Length, AnyOf
+
+
+# TODO: Save down a static set of data e.g. for AAPL for working / testing offline
 
 
 class StockChoiceForm(FlaskForm):
+    stock_codes = pd.read_csv('WIKI-datasets-codes.csv', header=None)
+    stock_code_list = stock_codes[0].tolist()
+    stock_code_list = [w.replace('WIKI/', '') for w in stock_code_list]
+
     # TODO: Improve validation
-    stock_ticker = StringField(u'Stock Ticker', validators=[DataRequired()])
+
+    stock_ticker = StringField(u'Stock symbol:', validators=[DataRequired(), Length(min=1, max=5),
+                                                             AnyOf(message='Invalid stock symbol - try again',
+                                                                   values=stock_code_list)], default='AAPL')
+
     submit = SubmitField('Submit')
 
-
 def main():
-    return
+    return  # TODO: Does this function achieve anything?
 
+
+# App configuration
+
+DEBUG = True
 app = Flask(__name__)
-app.secret_key = 'mjboothaus_42verylongsecretkey'
-Bootstrap(app)  # TODO: Does Bootstrap() do anything useful here?
+app.config.from_object(__name__)
+app.config['SECRET_KEY'] = '7d441f27d441f27567d441f2b6176a'
+
+Bootstrap(app)
 
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
-    stock_ticker = 'AAPL'  # Default initial value (Apple)
+    # stock_ticker = 'AAPL'  # Default initial value (Apple)
     form = StockChoiceForm()
     return render_template('app_choose_stock.html', form=form)
 
@@ -43,12 +59,12 @@ def produce_plot():
     # Load list of stock codes (currently static CSV version downloaded from Quandl
     # TODO: Probably best to get a list of stock symbols dynamically
 
-    stock_codes = pd.read_csv('WIKI-datasets-codes.csv', header=None)
-    stock_code_list = stock_codes[0].tolist()
-    stock_code_list = [w.replace('WIKI/', '') for w in stock_code_list]
+    # stock_codes = pd.read_csv('WIKI-datasets-codes.csv', header=None)
+    # stock_code_list = stock_codes[0].tolist()
+    # stock_code_list = [w.replace('WIKI/', '') for w in stock_code_list]
 
-    if stock_ticker not in stock_code_list:  # TODO - Implement client-side validation of stock symbol - see StockChoiceForm validators
-        stock_ticker = 'AAPL'
+    # if stock_ticker not in stock_code_list:  # TODO - Implement client-side validation of stock symbol - see StockChoiceForm validators
+    #    stock_ticker = 'AAPL'
 
     quandl_reference = 'WIKI/' + stock_ticker
     nasdaq_url = 'http://www.nasdaq.com/symbol/' + stock_ticker
@@ -64,15 +80,15 @@ def produce_plot():
     try:
         quandl.ApiConfig.api_key = 'Mror8Ww3qg5e947A7Fhj'
         data = quandl.get(quandl_reference, start_date=start_date, end_date=end_date, returns='pandas')
+
+        # Plotting
+        p = TimeSeries(data, y='Close', title=stock_ticker, ylabel='Price (USD / share)', xlabel='Date')
+        script, div = components(p)
     except:
-        print
-        print 'ERROR: Unable to query Quandl data - check internet connection?'
-        quit()  # TODO: Need to exit more gracefully
-
-    # Plotting
-
-    p = TimeSeries(data, y='Close', title=stock_ticker, ylabel='Price (USD / share)', xlabel='Date')
-    script, div = components(p)
+        return render_template('app_plotter_error.html',
+                               name=stock_ticker,
+                               js_resources=js_resources,
+                               css_resources=css_resources)
 
     return render_template('app_plotter.html',
                            name=stock_ticker,
