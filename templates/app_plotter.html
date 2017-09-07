@@ -1,20 +1,44 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset='utf-8'/>
-    <meta http-equiv='content-type' content='text/html; charset=utf-8'/>
-    <title>Share Price Plotter: {{ name|safe }}</title>
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap-theme.min.css"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Price Plotter: {{ name|safe }}</title>
     {{ js_resources|indent(4)|safe }}
     {{ css_resources|indent(4)|safe }}
     {{ plot_script|indent(4)|safe }}
+    <!-- Custom styles for this template -->
+    <link href="narrow-jumbotron.css" rel="stylesheet">
 </head>
+
 <body>
-<h3>
-    <a href="/">Return to stock chooser page</a>
-</h3>
-{{ plot_div|indent(4)|safe }}
-<p>
-    <a href="{{ nasdaq_url|safe }}" target="_blank"> Click to get current NASDAQ information on {{ name|safe}}.</a>
-</p>
+
+<div class="container">
+    <div class="header clearfix">
+        <nav>
+            <ul class="nav nav-pills float-right">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ nasdaq_url|safe }}" target="_blank">NASDAQ: {{ name|safe }}</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/static/about.html">About</a>
+                </li>
+            </ul>
+        </nav>
+        <h3 class="text-muted"><a href="https://www.about.me/mjboothaus" target="_blank">
+            @mjboothaus</a></h3>
+    </div>
+
+    <div class="jumbotron">
+
+        <h2 class="display-5">{{ name|safe }} Price History - Last 30 days</h2>
+        {{ plot_div|indent(4)|safe }}
 </body>
 </html>

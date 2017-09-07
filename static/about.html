@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap-theme.min.css"
           integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Choose Stock</title>
+    <title>About</title>
     <!-- Custom styles for this template -->
     <link href="narrow-jumbotron.css" rel="stylesheet">
 </head>
@@ -19,10 +19,11 @@
         <nav>
             <ul class="nav nav-pills float-right">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/static/about.html">About</a>
+                    <a class="nav-link active" href="/static/about.html">About <span
+                            class="sr-only">(current)</span></a>
                 </li>
             </ul>
         </nav>
@@ -31,20 +32,19 @@
     </div>
 
     <div class="jumbotron">
-        <h1 class="display-4">Stock Price Plotter</h1>
-        <p class="lead">Please specify a NASDAQ stock symbol to plot the closing stock price for the past 30 days e.g.
-            AAPL
-            (for Apple).</p>
-        <p><a>
-            <form method="POST" action="/produce_plot">
-                {{ form.hidden_tag() }}
-                {{ form.stock_ticker.label }} {{ form.stock_ticker(placeholder='AAPL', maxlength=5, size=8) }}
-                <input type="submit" value="Go">
-            </form>
-        </a></p>
-        <h6 class="display-5"><a href="http://www.nasdaq.com/screening/companies-by-name.aspx" target="_blank">
-            Click to look up a stock symbol on the NASDAQ.</a></h6>
+        <h1 class="display-4">About</h1>
+        <p class="lead">Stock Price Plotter web app built using Flask, WT-Forms, Bootstrap, Quandl, Bokeh and
+            Pandas under Python 2.7.</p>
+        <ul>
+            <li><a href="http://flask.pocoo.org" target="_blank">Flask</a> - Web framework</li>
+            <li><a href="http://wtforms.readthedocs.io/en/latest/" target="_blank">WTForms</a> - Web forms</li>
+            <li><a href="http://getbootstrap.com" target="_blank">Bootstrap</a> - Elegant CSS</li>
+            <li><a href="https://www.quandl.com" target="_blank">Quandl</a> - Financial data API</li>
+            <li><a href="https://bokeh.pydata.org" target="_blank">Bokeh</a> - Interactive plotting</li>
+            <li><a href="https://pandas.pydata.org" target="_blank">Pandas</a> - Dataframes</li>
+        </ul>
     </div>
+
 
 </div>
 
